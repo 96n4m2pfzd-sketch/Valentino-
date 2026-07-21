@@ -33,6 +33,41 @@
 
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La mia app</title>
+</head>
+<body>
+
+    <div id="auth-container" style="display:none;">
+        <h1>Benvenuto</h1>
+        <button onclick="eseguiLogin()">Accedi</button>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const isLoggedIn = localStorage.getItem("isLoggedIn");
+            if (isLoggedIn === "true") {
+                window.location.href = "dashboard.html";
+            } else {
+                const authContainer = document.getElementById("auth-container");
+                if (authContainer) {
+                    authContainer.style.display = "block";
+                }
+            }
+        });
+
+        function eseguiLogin() {
+            localStorage.setItem("isLoggedIn", "true");
+            window.location.href = "dashboard.html";
+        }
+    </script>
+
+</body>
+</html>
 
 
 
