@@ -243,7 +243,39 @@ function gestisciAccesso() {
             localStorage.setItem("isLoggedIn", "true");
             window.location.href = "home.html";
         }
+    </script>    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const isLoggedIn = localStorage.getItem("isLoggedIn");
+
+            if (isLoggedIn === "true") {
+                window.location.href = "home.html"; 
+            } else {
+                // Lascia qui la schermata di benvenuto
+            }
+        });
+
+        function gestisciAccesso() {
+            localStorage.setItem("isLoggedIn", "true");
+            window.location.href = "home.html";
+        }
+    </script>     <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const isLoggedIn = localStorage.getItem("isLoggedIn");
+
+            if (isLoggedIn === "true") {
+                window.location.href = "home.html"; 
+            } else {
+                // Lascia qui la schermata di benvenuto
+            }
+        });
+
+        function gestisciAccesso() {
+            localStorage.setItem("isLoggedIn", "true");
+            window.location.href = "home.html";
+        }
     </script>
+
+
 </body>                 
 </html>             
 
