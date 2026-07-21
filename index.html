@@ -3,10 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amicizia+ - Nasce per conoscere gente nuova</title>
-    <!-- Google Fonts: Poppins -->
+    <title>Amicizia+ – Nasce per conoscere gente nuova</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- FontAwesome per le icone -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -19,721 +17,140 @@
             --text-main: #1B2559;
             --text-muted: #707EAE;
             --border-color: #E0E5F2;
+            --radius: 16px;
         }
 
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
             font-family: 'Poppins', sans-serif;
         }
 
         body {
-            background-color: #0b0f19;
+            background-color: var(--bg-color);
+            color: var(--text-main);
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            color: var(--text-main);
-        }
-
-        /* Container dell'app (Simulatore Smartphone) */
-        .app-container {
-            width: 100%;
-            max-width: 414px;
-            height: 896px;
-            background-color: var(--bg-color);
-            border-radius: 40px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            border: 8px solid #222;
-        }
-
-        /* Top Bar iOS Style */
-        .ios-topbar {
-            height: 44px;
-            background: #fff;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 24px;
-            font-size: 14px;
-            font-weight: 600;
-            color: #000;
-        }
-
-        /* Contenuto delle schermate */
-        .screen-content {
-            flex: 1;
-            overflow-y: auto;
             padding: 20px;
-            padding-bottom: 90px;
-            display: none;
         }
 
-        .screen-content.active {
-            display: block;
-        }
-
-        /* Header schermate interne */
-        .header-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .header-top h1 {
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--text-main);
-        }
-
-        .notif-badge {
-            position: relative;
-            background: #fff;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            cursor: pointer;
-        }
-        .notif-badge::after {
-            content: '';
-            position: absolute;
-            top: 8px;
-            right: 8px;
-            width: 8px;
-            height: 8px;
-            background: #FF3B30;
-            border-radius: 50%;
-        }
-
-        /* Barra di ricerca */
-        .search-bar {
-            background: #fff;
-            padding: 12px 16px;
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-            margin-bottom: 20px;
-        }
-        .search-bar input {
-            border: none;
-            outline: none;
-            font-size: 14px;
+        .container {
             width: 100%;
-            color: var(--text-main);
-        }
-        .search-bar i {
-            color: var(--text-muted);
-        }
-
-        /* Schermata HOME: Card Swipe */
-        .swipe-card {
+            max-width: 480px;
             background: var(--card-bg);
-            border-radius: 24px;
+            border-radius: var(--radius);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
             overflow: hidden;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-            position: relative;
-            margin-bottom: 20px;
-        }
-        .swipe-card img {
-            width: 100%;
-            height: 380px;
-            object-fit: cover;
-        }
-        .swipe-card-info {
-            padding: 20px;
-            background: linear-gradient(to top, rgba(255,255,255,1) 80%, rgba(255,255,255,0));
-            margin-top: -60px;
-            position: relative;
-        }
-        .swipe-card-info h3 {
-            font-size: 22px;
-            font-weight: 700;
-        }
-        .swipe-card-info p {
-            color: var(--text-muted);
-            font-size: 14px;
-            margin-bottom: 12px;
-        }
-        .tags-container {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-        .tag {
-            background: var(--bg-color);
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 500;
-            color: var(--primary);
-        }
-
-        /* Pulsanti Azione Swipe (Home) */
-        .action-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-bottom: 20px;
-        }
-        .btn-action {
-            width: 55px;
-            height: 55px;
-            border-radius: 50%;
-            border: none;
-            background: #fff;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.08);
-            font-size: 20px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: transform 0.2s;
-        }
-        .btn-action:active { transform: scale(0.9); }
-        .btn-close { color: #FF3B30; }
-        .btn-star { color: #FFCC00; }
-        .btn-heart { color: #34C759; }
-
-        /* Schermata SCOPRI: Filtri e Liste */
-        .filter-chips {
-            display: flex;
-            gap: 10px;
-            overflow-x: auto;
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-        }
-        .filter-chips::-webkit-scrollbar { display: none; }
-        .chip {
-            background: #fff;
-            border: 1px solid var(--border-color);
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: 500;
-            white-space: nowrap;
-            cursor: pointer;
-        }
-        .chip.active {
-            background: var(--primary);
-            color: #fff;
-            border-color: var(--primary);
-        }
-
-        .user-list-item {
-            background: #fff;
-            padding: 12px 16px;
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 12px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
-        }
-        .user-info-wrapper {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
-        .user-info-wrapper img {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-        .user-info-wrapper h4 {
-            font-size: 15px;
-            font-weight: 600;
-        }
-        .user-info-wrapper p {
-            font-size: 12px;
-            color: var(--text-muted);
-        }
-        .btn-follow {
-            background: var(--bg-color);
-            color: var(--primary);
-            border: none;
-            padding: 8px 16px;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 12px;
-            cursor: pointer;
-        }
-
-        /* Schermata CHAT */
-        .stories-row {
-            display: flex;
-            gap: 16px;
-            overflow-x: auto;
-            padding-bottom: 15px;
-            margin-bottom: 10px;
-        }
-        .stories-row::-webkit-scrollbar { display: none; }
-        .story-item {
             display: flex;
             flex-direction: column;
-            align-items: center;
-            gap: 6px;
-            cursor: pointer;
-        }
-        .story-avatar {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            border: 2px solid var(--primary);
-            padding: 2px;
-            object-fit: cover;
-        }
-        .story-item span {
-            font-size: 11px;
-            color: var(--text-main);
-            font-weight: 500;
         }
 
-        .chat-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 12px 0;
-            border-bottom: 1px solid var(--border-color);
-            cursor: pointer;
-        }
-        .chat-left {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
-        .chat-left img {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-        .chat-msg-preview h5 {
-            font-size: 15px;
-            font-weight: 600;
-        }
-        .chat-msg-preview p {
-            font-size: 13px;
-            color: var(--text-muted);
-        }
-        .chat-time {
-            font-size: 11px;
-            color: var(--text-muted);
-        }
-
-        /* Schermata PROFILO */
-        .profile-header-card {
-            background: #fff;
-            border-radius: 24px;
-            padding: 20px;
+        .header {
+            background: linear-gradient(135deg, #0066FF 0%, #00C6FF 100%);
+            color: white;
+            padding: 40px 20px;
             text-align: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-            margin-bottom: 20px;
-            position: relative;
-        }
-        .profile-bg-banner {
-            height: 90px;
-            background: var(--primary);
-            border-radius: 16px 16px 0 0;
-            margin: -20px -20px 0 -20px;
-        }
-        .profile-avatar-large {
-            width: 90px;
-            height: 90px;
-            border-radius: 50%;
-            border: 4px solid #fff;
-            object-fit: cover;
-            margin-top: -45px;
-            margin-bottom: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-        .profile-header-card h2 {
-            font-size: 20px;
-            font-weight: 700;
-        }
-        .profile-header-card p {
-            font-size: 13px;
-            color: var(--text-muted);
-            margin-bottom: 15px;
-        }
-        .profile-menu-list {
-            background: #fff;
-            border-radius: 20px;
-            padding: 10px 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-        }
-        .menu-item-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 15px 0;
-            border-bottom: 1px solid var(--border-color);
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 500;
-        }
-        .menu-item-row:last-child { border-bottom: none; }
-        .menu-item-left {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            color: var(--text-main);
-        }
-        .menu-item-left i {
-            color: var(--primary);
-            font-size: 18px;
         }
 
-        /* Bottom Navigation Bar (Navbar fissa in basso) */
-        .bottom-nav {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 80px;
-            background: #fff;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            border-top: 1px solid var(--border-color);
-            padding-bottom: 15px;
-            z-index: 100;
+        .header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
         }
-        .nav-item {
+
+        .header p {
+            font-size: 15px;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .content {
+            padding: 30px 20px;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            gap: 4px;
-            background: none;
-            border: none;
-            cursor: pointer;
+            gap: 20px;
+        }
+
+        .card-info {
+            background: var(--bg-color);
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .card-info h3 {
+            font-size: 18px;
+            margin-bottom: 8px;
+            color: var(--text-main);
+        }
+
+        .card-info p {
+            font-size: 14px;
             color: var(--text-muted);
-            font-size: 11px;
-            font-weight: 500;
+            line-height: 1.5;
         }
-        .nav-item i {
-            font-size: 20px;
+
+        .btn {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            padding: 14px;
+            border-radius: 12px;
+            border: none;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
         }
-        .nav-item.active {
-            color: var(--primary);
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+            box-shadow: 0 4px 12px rgba(0, 102, 255, 0.2);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 13px;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-color);
         }
     </style>
 </head>
 <body>
 
-    <div class="app-container">
-        <!-- iOS Status Bar -->
-        <div class="ios-topbar">
-            <span>9:41</span>
-            <div>
-                <i class="fa-solid fa-signal"></i>
-                <i class="fa-solid fa-wifi" style="margin-left: 5px;"></i>
-                <i class="fa-solid fa-battery-full" style="margin-left: 5px;"></i>
-            </div>
+    <div class="container">
+        <div class="header">
+            <h1>Amicizia+</h1>
+            <p>Nasce per conoscere gente nuova</p>
         </div>
 
-        <!-- 1. SCHERMATA HOME -->
-        <div id="screen-home" class="screen-content active">
-            <div class="header-top">
-                <div>
-                    <p style="font-size: 13px; color: var(--text-muted);">Ciao, Giulia! 👋</p>
-                    <h1>Home</h1>
-                </div>
-                <div class="notif-badge">
-                    <i class="fa-regular fa-bell" style="color: var(--text-main);"></i>
-                </div>
+        <div class="content">
+            <div class="card-info">
+                <h3>Benvenuto!</h3>
+                <p>Unisciti alla nostra community per fare nuove amicizie, condividere passioni e partecipare a eventi straordinari.</p>
             </div>
 
-            <!-- Card Profilo Principale (stile Swipe) -->
-            <div class="swipe-card">
-                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500&auto=format&fit=crop&q=80" alt="Martina">
-                <div class="swipe-card-info">
-                    <h3>Martina, 23 <i class="fa-solid fa-circle-check" style="font-size: 16px; color: var(--success);"></i></h3>
-                    <p><i class="fa-solid fa-location-dot"></i> Milano, Italia</p>
-                    <div class="tags-container">
-                        <span class="tag">📸 Fotografia</span>
-                        <span class="tag">🎵 Musica</span>
-                        <span class="tag">✈️ Viaggi</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Pulsanti interattivi Swipe -->
-            <div class="action-buttons">
-                <button class="btn-action btn-close" onclick="nextCard()"><i class="fa-solid fa-xmark"></i></button>
-                <button class="btn-action btn-star" onclick="nextCard()"><i class="fa-solid fa-star"></i></button>
-                <button class="btn-action btn-heart" onclick="nextCard()"><i class="fa-solid fa-heart"></i></button>
-            </div>
+            <a href="#" class="btn btn-primary">
+                <i class="fa-solid fa-user-plus"></i> Unisciti Subito
+            </a>
         </div>
 
-        <!-- 2. SCHERMATA SCOPRI -->
-        <div id="screen-scopri" class="screen-content">
-            <div class="header-top">
-                <h1>Scopri</h1>
-                <div class="notif-badge">
-                    <i class="fa-solid fa-sliders" style="color: var(--text-main);"></i>
-                </div>
-            </div>
-
-            <div class="search-bar">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" placeholder="Cerca persone o interessi">
-            </div>
-
-            <div class="filter-chips">
-                <div class="chip active">Tutti</div>
-                <div class="chip">Vicino a te</div>
-                <div class="chip">Online</div>
-                <div class="chip">Nuovi</div>
-            </div>
-
-            <h3 style="font-size: 16px; margin-bottom: 12px; font-weight: 600;">Persone consigliate</h3>
-
-            <div class="user-list-item">
-                <div class="user-info-wrapper">
-                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&auto=format&fit=crop&q=80" alt="Luca">
-                    <div>
-                        <h4>Luca, 25</h4>
-                        <p>Torino, Italia • 3 km</p>
-                    </div>
-                </div>
-                <button class="btn-follow">Segui</button>
-            </div>
-
-            <div class="user-list-item">
-                <div class="user-info-wrapper">
-                    <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=500&auto=format&fit=crop&q=80" alt="Chiara">
-                    <div>
-                        <h4>Chiara, 22</h4>
-                        <p>Milano, Italia • 5 km</p>
-                    </div>
-                </div>
-                <button class="btn-follow">Segui</button>
-            </div>
-
-            <div class="user-list-item">
-                <div class="user-info-wrapper">
-                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=500&auto=format&fit=crop&q=80" alt="Marco">
-                    <div>
-                        <h4>Marco, 24</h4>
-                        <p>Bologna, Italia • 8 km</p>
-                    </div>
-                </div>
-                <button class="btn-follow">Segui</button>
-            </div>
+        <div class="footer">
+            &copy; 2026 Amicizia+. Tutti i diritti riservati.
         </div>
-
-        <!-- 3. SCHERMATA CHAT -->
-        <div id="screen-chat" class="screen-content">
-            <div class="header-top">
-                <h1>Chat</h1>
-                <div class="notif-badge">
-                    <i class="fa-regular fa-pen-to-square" style="color: var(--text-main);"></i>
-                </div>
-            </div>
-
-            <div class="search-bar" style="margin-bottom: 15px;">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" placeholder="Cerca nella chat">
-            </div>
-
-            <!-- Storie in alto -->
-            <div class="stories-row">
-                <div class="story-item">
-                    <img class="story-avatar" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=500&auto=format&fit=crop&q=80" alt="La tua storia">
-                    <span>La tua storia</span>
-                </div>
-                <div class="story-item">
-                    <img class="story-avatar" src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=500&auto=format&fit=crop&q=80" alt="Martina">
-                    <span>Martina</span>
-                </div>
-                <div class="story-item">
-                    <img class="story-avatar" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&auto=format&fit=crop&q=80" alt="Luca">
-                    <span>Luca</span>
-                </div>
-                <div class="story-item">
-                    <img class="story-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500&auto=format&fit=crop&q=80" alt="Chiara">
-                    <span>Chiara</span>
-                </div>
-            </div>
-
-            <div style="margin-top: 15px;">
-                <div class="chat-item">
-                    <div class="chat-left">
-                        <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=500&auto=format&fit=crop&q=80" alt="Chiara">
-                        <div class="chat-msg-preview">
-                            <h5>Chiara</h5>
-                            <p>Sta scrivendo...</p>
-                        </div>
-                    </div>
-                    <span class="chat-time">09:41</span>
-                </div>
-
-                <div class="chat-item">
-                    <div class="chat-left">
-                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&auto=format&fit=crop&q=80" alt="Luca">
-                        <div class="chat-msg-preview">
-                            <h5>Luca</h5>
-                            <p>Ci vediamo domani? 😊</p>
-                        </div>
-                    </div>
-                    <span class="chat-time">09:15</span>
-                </div>
-
-                <div class="chat-item">
-                    <div class="chat-left">
-                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=500&auto=format&fit=crop&q=80" alt="Marco">
-                        <div class="chat-msg-preview">
-                            <h5>Marco</h5>
-                            <p>Grazie mille! 👍</p>
-                        </div>
-                    </div>
-                    <span class="chat-time">Ieri</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- 4. SCHERMATA PROFILO -->
-        <div id="screen-profilo" class="screen-content">
-            <div class="header-top">
-                <h1>Profilo</h1>
-                <div class="notif-badge">
-                    <i class="fa-solid fa-gear" style="color: var(--text-main);"></i>
-                </div>
-            </div>
-
-            <div class="profile-header-card">
-                <div class="profile-bg-banner"></div>
-                <img class="profile-avatar-large" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500&auto=format&fit=crop&q=80" alt="Giulia">
-                <h2>Giulia, 23 <i class="fa-solid fa-circle-check" style="font-size: 16px; color: var(--success);"></i></h2>
-                <p>Milano, Italia</p>
-                <p style="font-size: 12px; color: var(--text-main); margin-bottom: 15px;">Amo viaggiare, scoprire posti nuovi e fare foto. Cerco nuove amicizie genuine! ✨</p>
-                <div class="tags-container" style="justify-content: center;">
-                    <span class="tag">✈️ Viaggi</span>
-                    <span class="tag">📸 Fotografia</span>
-                    <span class="tag">🎵 Musica</span>
-                    <span class="tag">📚 Libri</span>
-                </div>
-            </div>
-
-            <div class="profile-menu-list">
-                <div class="menu-item-row">
-                    <div class="menu-item-left">
-                        <i class="fa-regular fa-user"></i>
-                        <span>Modifica profilo</span>
-                    </div>
-                    <i class="fa-solid fa-chevron-right" style="color: var(--text-muted); font-size: 12px;"></i>
-                </div>
-                <div class="menu-item-row">
-                    <div class="menu-item-left">
-                        <i class="fa-solid fa-gear"></i>
-                        <span>Impostazioni</span>
-                    </div>
-                    <i class="fa-solid fa-chevron-right" style="color: var(--text-muted); font-size: 12px;"></i>
-                </div>
-                <div class="menu-item-row">
-                    <div class="menu-item-left">
-                        <i class="fa-solid fa-shield-halved"></i>
-                        <span>Privacy e sicurezza</span>
-                    </div>
-                    <i class="fa-solid fa-chevron-right" style="color: var(--text-muted); font-size: 12px;"></i>
-                </div>
-                <div class="menu-item-row">
-                    <div class="menu-item-left">
-                        <i class="fa-regular fa-circle-question"></i>
-                        <span>Aiuto e assistenza</span>
-                    </div>
-                    <i class="fa-solid fa-chevron-right" style="color: var(--text-muted); font-size: 12px;"></i>
-                </div>
-            </div>
-        </div>
-
-        <!-- Bottom Navigation Bar -->
-        <nav class="bottom-nav">
-            <button class="nav-item active" onclick="switchScreen('home', this)">
-                <i class="fa-solid fa-house"></i>
-                <span>Home</span>
-            </button>
-            <button class="nav-item" onclick="switchScreen('scopri', this)">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <span>Scopri</span>
-            </button>
-            <button class="nav-item" onclick="switchScreen('chat', this)">
-                <i class="fa-regular fa-comment-dots"></i>
-                <span>Chat</span>
-            </button>
-            <button class="nav-item" onclick="switchScreen('profilo', this)">
-                <i class="fa-regular fa-user"></i>
-                <span>Profilo</span>
-            </button>
-        </nav>
     </div>
 
-    <script>
-        // Funzione per cambiare schermata in modo fluido
-        function switchScreen(screenId, element) {
-            // Nascondi tutte le schermate
-            document.querySelectorAll('.screen-content').forEach(screen => {
-                screen.classList.remove('active');
-            });
-            // Mostra quella selezionata
-            document.getElementById('screen-scopri').style.display = 'none';
-            document.getElementById('screen-home').style.display = 'none';
-            document.getElementById('screen-chat').style.display = 'none';
-            document.getElementById('screen-profilo').style.display = 'none';
-
-            const target = document.getElementById('screen-' + screenId);
-            target.style.display = 'block';
-            setTimeout(() => target.classList.add('active'), 10);
-
-            // Gestione classi attive nella navbar
-            document.querySelectorAll('.nav-item').forEach(nav => {
-                nav.classList.remove('active');
-            });
-            element.classList.add('active');
-        }
-
-        // Funzione interattiva per simulare lo scorrimento delle card nella Home
-        const profiles = [
-            { name: "Martina, 23", city: "Milano, Italia", img: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500&auto=format&fit=crop&q=80", tags: ["📸 Fotografia", "🎵 Musica", "✈️ Viaggi"] },
-            { name: "Alessia, 22", city: "Roma, Italia", img: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=500&auto=format&fit=crop&q=80", tags: ["📚 Libri", "☕ Caffè", "🎨 Arte"] },
-            { name: "Federica, 25", city: "Firenze, Italia", img: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=500&auto=format&fit=crop&q=80", tags: ["🍕 Cucina", "🧘 Yoga", "🌍 Natura"] }
-        ];
-        let currentProfileIndex = 0;
-
-        function nextCard() {
-            currentProfileIndex = (currentProfileIndex + 1) % profiles.length;
-            const p = profiles[currentProfileIndex];
-            
-            const cardImg = document.querySelector('.swipe-card img');
-            const cardTitle = document.querySelector('.swipe-card-info h3');
-            const cardCity = document.querySelector('.swipe-card-info p');
-            const tagsContainer = document.querySelector('.swipe-card-info .tags-container');
-
-            cardImg.src = p.img;
-            cardTitle.innerHTML = `${p.name} <i class="fa-solid fa-circle-check" style="font-size: 16px; color: var(--success);"></i>`;
-            cardCity.innerHTML = `<i class="fa-solid fa-location-dot"></i> ${p.city}`;
-            
-            tagsContainer.innerHTML = '';
-            p.tags.forEach(t => {
-                const span = document.createElement('span');
-                span.className = 'tag';
-                span.innerText = t;
-                tagsContainer.appendChild(span);
-            });
-        }
-    </script>
 </body>
 </html>
