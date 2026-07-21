@@ -153,4 +153,21 @@
     </div>
 
 </body>
-</html>
+</html>document.addEventListener("DOMContentLoaded", function() {
+    // Controlla se l'utente è già loggato (es. controllando il localStorage)
+    const isLoggedIn = localStorage.getItem("isLoggedIn"); // oppure controlla un token
+
+    if (isLoggedIn === "true") {
+        // Se è loggato, reindirizzalo alla dashboard o carica la vista protetta
+        window.location.href = "dashboard.html"; // Sostituisci con la tua pagina principale
+    } else {
+        // Se NON è loggato, mostra la schermata di benvenuto che hai in foto
+        document.getElementById("auth-container").style.display = "block";
+    }
+});function eseguiLogin() {
+    // ... dopo aver verificato le credenziali con successo ...
+    localStorage.setItem("isLoggedIn", "true");
+    window.location.href = "dashboard.html"; // Vai alla home dell'app
+}
+
+
