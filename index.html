@@ -169,6 +169,16 @@
     localStorage.setItem("isLoggedIn", "true");
     window.location.href = "dashboard.html"; // Vai alla home dell'app
 }localStorage.setItem("isLoggedIn", "true");
+// Esempio da inserire quando l'utente compie l'azione di login/registrazione con successo
+function gestisciAccesso() {
+    // 1. Qui metti la logica di verifica (es. controllo campi email/password)
+    
+    // 2. Salvi lo stato nel browser
+    localStorage.setItem("isLoggedIn", "true");
+    
+    // 3. Reindirizzi l'utente alla schermata principale
+    window.location.href = "home.html"; // Sostituisci con il nome della tua pagina principale se è diverso
+}
 
 
 
