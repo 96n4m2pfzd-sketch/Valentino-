@@ -3,283 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amicizia+ – Nasce per conoscere gente nuova</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <style>
-        :root {
-            --primary: #0066FF;
-            --primary-hover: #0052CC;
-            --success: #28A745;
-            --bg-color: #F4F7FE;
-            --card-bg: #FFFFFF;
-            --text-main: #1B2559;
-            --text-muted: #707EAE;
-            --border-color: #E0E5F2;
-            --radius: 16px;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 480px;
-            background: var(--card-bg);
-            border-radius: var(--radius);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .header {
-            background: linear-gradient(135deg, #0066FF 0%, #00C6FF 100%);
-            color: white;
-            padding: 40px 20px;
-            text-align: center;
-        }
-
-        .header h1 {
-            font-size: 28px;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-
-        .header p {
-            font-size: 15px;
-            opacity: 0.9;
-            font-weight: 300;
-        }
-
-        .content {
-            padding: 30px 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .card-info {
-            background: var(--bg-color);
-            padding: 20px;
-            border-radius: 12px;
-            text-align: center;
-        }
-
-        .card-info h3 {
-            font-size: 18px;
-            margin-bottom: 8px;
-            color: var(--text-main);
-        }
-
-        .card-info p {
-            font-size: 14px;
-            color: var(--text-muted);
-            line-height: 1.5;
-        }
-
-        .btn {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-            width: 100%;
-            padding: 14px;
-            border-radius: 12px;
-            border: none;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-        }
-
-        .btn-primary {
-            background-color: var(--primary);
-            color: white;
-            box-shadow: 0 4px 12px rgba(0, 102, 255, 0.2);
-        }
-
-        .btn-primary:hover {
-            background-color: var(--primary-hover);
-        }
-
-        .footer {
-            text-align: center;
-            padding: 20px;
-            font-size: 13px;
-            color: var(--text-muted);
-            border-top: 1px solid var(--border-color);
-        }
-    </style>
+    <title>La mia app</title>
 </head>
 <body>
 
-    <div class="container">
-        <div class="header">
-            <h1>Amicizia+</h1>
-            <p>Nasce per conoscere gente nuova</p>
-        </div>
-
-        <div class="content">
-            <div class="card-info">
-                <h3>Benvenuto!</h3>
-                <p>Unisciti alla nostra community per fare nuove amicizie, condividere passioni e partecipare a eventi straordinari.</p>
-            </div>
-
-            <a href="#" class="btn btn-primary">
-                <i class="fa-solid fa-user-plus"></i> Unisciti Subito
-            </a>
-        </div>
-
-        <div class="footer">
-            &copy; 2026 Amicizia+. Tutti i diritti riservati.
-        </div>
+    <div id="auth-container" style="display:none;">
+        <h1>Benvenuto</h1>
+        <button onclick="eseguiLogin()">Accedi</button>
     </div>
 
-</body>
-</html>document.addEventListener("DOMContentLoaded", function() {
-    // Controlla se l'utente è già loggato (es. controllando il localStorage)
-    const isLoggedIn = localStorage.getItem("isLoggedIn"); // oppure controlla un token
-
-    if (isLoggedIn === "true") {
-        // Se è loggato, reindirizzalo alla dashboard o carica la vista protetta
-        window.location.href = "dashboard.html"; // Sostituisci con la tua pagina principale
-    } else {
-        // Se NON è loggato, mostra la schermata di benvenuto che hai in foto
-        document.getElementById("auth-container").style.display = "block";
-    }
-});function eseguiLogin() {
-    // ... dopo aver verificato le credenziali con successo ...
-    localStorage.setItem("isLoggedIn", "true");
-    window.location.href = "dashboard.html"; // Vai alla home dell'app
-}localStorage.setItem("isLoggedIn", "true");
-// Esempio da inserire quando l'utente compie l'azione di login/registrazione con successo
-function gestisciAccesso() {
-    // 1. Qui metti la logica di verifica (es. controllo campi email/password)
-    
-    // 2. Salvi lo stato nel browser
-    localStorage.setItem("isLoggedIn", "true");
-        <script>
+    <script>
         document.addEventListener("DOMContentLoaded", function() {
             const isLoggedIn = localStorage.getItem("isLoggedIn");
-
             if (isLoggedIn === "true") {
-                console.log("Utente già loggato");
+                window.location.href = "dashboard.html";
             } else {
-                console.log("Mostra schermata di benvenuto");
+                const authContainer = document.getElementById("auth-container");
+                if (authContainer) {
+                    authContainer.style.display = "block";
+                }
             }
         });
 
-        // Funzione da collegare al pulsante di accesso
-        function gestisciAccesso() {
+        function eseguiLogin() {
             localStorage.setItem("isLoggedIn", "true");
-            // Eventuale codice per cambiare pagina o vista
+            window.location.href = "dashboard.html";
         }
     </script>
-</
-</html>    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const isLoggedIn = localStorage.getItem("isLoggedIn");
 
-            if (isLoggedIn === "true") {
-                // Utente già loggato
-            } else {
-                // Utente non loggato
-            }
-        });
-
-        function gestisciAccesso() {
-            localStorage.setItem("isLoggedIn", "true");
-            window.location.href = "home.html";
-        }
-    </script>
-</body>
-</html>    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const isLoggedIn = localStorage.getItem("isLoggedIn");
-
-            if (isLoggedIn === "true") {
-                // Utente già loggato
-            } else {
-                // Utente non loggato
-            }
-        });
-
-        function gestisciAccesso() {
-            localStorage.setItem("isLoggedIn", "true");
-            window.location.href = "home.html";
-        }    </script>
-</body>        // ... (qui ci sono gli altri tuoi codici, scritte o pulsanti) ...
-        
-    </script>    <-- INSERISCI QUI IL TAG DI APERTURA "<script>"
-    
-        document.addEventListener("DOMContentLoaded", function() {
-            const isLoggedIn = localStorage.getItem("isLoggedIn");
-
-            if (isLoggedIn === "true") {
-                window.location.href = "home.html"; 
-            } else {
-                // Lascia qui la schermata di benvenuto
-            }
-        });
-
-        function gestisciAccesso() {
-            localStorage.setItem("isLoggedIn", "true");
-            window.location.href = "home.html";
-        }
-    </script>    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const isLoggedIn = localStorage.getItem("isLoggedIn");
-
-            if (isLoggedIn === "true") {
-                window.location.href = "home.html"; 
-            } else {
-                // Lascia qui la schermata di benvenuto
-            }
-        });
-
-        function gestisciAccesso() {
-            localStorage.setItem("isLoggedIn", "true");
-            window.location.href = "home.html";
-<script>
-     document.addEventListener("DOMContentLoaded", function() {
-            const isLoggedIn = localStorage.getItem("isLoggedIn");
-
-            if (isLoggedIn === "true") {
-                window.location.href = "home.html"; 
-            } else {
-                // Lascia qui la schermata di benvenuto
-            }
-        });
-
-        function gestisciAccesso() {
-            localStorage.setItem("isLoggedIn", "true");
-            window.location.href = "home.html";
-                function gestisciAccesso() {
-            localStorage.setItem("isLoggedIn", "true");
-            window.location.href = "home.html";
-        }
-            }
-});
-</script>
 </body>
 </html>
+
 
 
 
