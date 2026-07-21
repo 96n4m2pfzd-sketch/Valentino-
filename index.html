@@ -1,60 +1,131 @@
 
-<!DOCTYPE html><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="it">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amicizia +</title>
+    <title>Amicizia+</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #ff758c, #ff7eb3);
-            color: white;
-            text-align: center;
-            padding: 50px 20px;
-            margin: 0;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-        }
-        p {
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-        }
-        .btn {
-            background-color: white;
-            color: #ff758c;
-            padding: 12px 25px;
-            font-size: 1rem;
-            font-weight: bold;
-            border: none;
-            border-radius: 25px;
-            cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+        body { background-color: #f4f6f9; color: #333; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .phone-container { width: 100%; max-width: 400px; height: 100vh; max-height: 840px; background: white; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 10px 25px rgba(0,0,0,0.1); position: relative; overflow: hidden; }
+        
+        /* Contenuto delle schermate */
+        .screen { display: none; flex: 1; overflow-y: auto; padding: 20px; padding-bottom: 80px; }
+        .screen.active { display: block; }
+
+        /* Login Screen */
+        .login-screen { text-align: center; padding-top: 60px; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; }
+        .logo-box { width: 80px; height: 80px; background: linear-gradient(135deg, #2563EB, #22C55E); border-radius: 20px; display: flex; justify-content: center; align-items: center; margin-bottom: 20px; color: white; font-size: 40px; }
+        .login-title { font-size: 28px; font-weight: bold; color: #111; margin-bottom: 10px; }
+        .login-subtitle { font-size: 14px; color: #666; margin-bottom: 30px; }
+        .btn-primary { width: 100%; background: #2563EB; color: white; border: none; padding: 14px; border-radius: 12px; font-size: 16px; font-weight: bold; cursor: pointer; margin-bottom: 12px; }
+        .btn-secondary { width: 100%; background: white; color: #2563EB; border: 2px solid #2563EB; padding: 12px; border-radius: 12px; font-size: 16px; font-weight: bold; cursor: pointer; margin-bottom: 20px; }
+
+        /* Home Card */
+        .profile-card { background: white; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); overflow: hidden; margin-top: 15px; border: 1px solid #eee; }
+        .card-img { width: 100%; height: 320px; background: #ddd; object-fit: cover; }
+        .card-info { padding: 15px; }
+        
+        /* Barra di navigazione in basso */
+        .nav-bar { position: absolute; bottom: 0; left: 0; width: 100%; height: 65px; background: white; border-top: 1px solid #eee; display: flex; justify-content: space-around; align-items: center; z-index: 100; }
+        .nav-item { background: none; border: none; display: flex; flex-direction: column; align-items: center; cursor: pointer; color: #888; font-size: 11px; }
+        .nav-item.active { color: #2563EB; font-weight: bold; }
+        .nav-item svg { width: 22px; height: 22px; margin-bottom: 3px; fill: currentColor; }
     </style>
 </head>
 <body>
 
-    <h1>Amicizia +</h1>
-    <p>Benvenuto nella tua applicazione dedicata agli amici!</p>
-    <button class="btn" onclick="alert('Benvenuto su Amicizia +!')">Clicca qui</button>
+<div class="phone-container">
 
-</body>
-</html>
+    <!-- SCHERMATA LOGIN -->
+    <div id="screen-login" class="screen login-screen active">
+        <div class="logo-box">💙💚</div>
+        <div class="login-title">Amicizia+</div>
+        <div class="login-subtitle">Ogni amicizia inizia<br>con un messaggio.</div>
+        <button class="btn-primary" onclick="showScreen('screen-home')">Accedi</button>
+        <button class="btn-secondary" onclick="showScreen('screen-home')">Registrati</button>
+    </div>
 
-</head>
-<body>
+    <!-- SCHERMATA HOME -->
+    <div id="screen-home" class="screen">
+        <h2 style="margin-bottom: 5px;">Home</h2>
+        <p style="color: #666; font-size: 14px;">Ciao, Giulia! 👋</p>
+        
+        <div class="profile-card">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=500&q=80" class="card-img" alt="Martina">
+            <div class="card-info">
+                <h3>Martina, 23 🟢</h3>
+                <p style="color: #666; font-size: 13px;">Milano, Italia</p>
+            </div>
+        </div>
+    </div>
 
-    <h1>Amicizia +</h1>
-    <p>Benvenuto nella tua applicazione dedicata agli amici!</p>
-    <button class="btn" onclick="alert('Benvenuto su Amicizia +!')">Clicca qui</button>
+    <!-- SCHERMATA SCOPRI -->
+    <div id="screen-scopri" class="screen">
+        <h2>Scopri</h2>
+        <p style="color: #666; font-size: 14px; margin-top: 10px;">Persone consigliate vicino a te.</p>
+        <div style="margin-top: 20px; padding: 15px; background: #f9f9f9; border-radius: 12px;">
+            <h4>Luca, 25</h4>
+            <p style="font-size: 13px; color: #666;">Torino, Italia • 3 km</p>
+        </div>
+        <div style="margin-top: 10px; padding: 15px; background: #f9f9f9; border-radius: 12px;">
+            <h4>Chiara, 22</h4>
+            <p style="font-size: 13px; color: #666;">Milano, Italia • 5 km</p>
+        </div>
+    </div>
+
+    <!-- SCHERMATA CHAT -->
+    <div id="screen-chat" class="screen">
+        <h2>Chat</h2>
+        <div style="margin-top: 15px; display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid #eee;">
+            <div style="width: 45px; height: 45px; background: #2563EB; border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center; font-weight: bold;">M</div>
+            <div>
+                <h4>Martina</h4>
+                <p style="font-size: 13px; color: #22C55E;">Sta scrivendo...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCHERMATA PROFILO -->
+    <div id="screen-profilo" class="screen" style="text-align: center;">
+        <div style="width: 90px; height: 90px; background: #2563EB; border-radius: 50%; margin: 20px auto; color: white; display: flex; align-items: center; justify-content: center; font-size: 32px; font-weight: bold;">G</div>
+        <h3>Giulia, 23 🟢</h3>
+        <p style="color: #666; font-size: 13px; margin-bottom: 20px;">Milano, Italia</p>
+        <p style="font-size: 14px; padding: 0 10px; color: #444;">Amo viaggiare, scoprire posti nuovi e fare foto. Cerco nuove amicizie genuine! ✨</p>
+        <button class="btn-primary" style="margin-top: 30px;" onclick="showScreen('screen-login')">Esci</button>
+    </div>
+
+    <!-- MENU DI NAVIGAZIONE IN BASSO -->
+    <div class="nav-bar">
+        <button class="nav-item active" onclick="switchNav(this, 'screen-home')">
+            🏠<span>Home</span>
+        </button>
+        <button class="nav-item" onclick="switchNav(this, 'screen-scopri')">
+            🔍<span>Scopri</span>
+        </button>
+        <button class="nav-item" onclick="switchNav(this, 'screen-chat')">
+            💬<span>Chat</span>
+        </button>
+        <button class="nav-item" onclick="switchNav(this, 'screen-profilo')">
+            👤<span>Profilo</span>
+        </button>
+    </div>
+
+</div>
+
+<script>
+    function showScreen(screenId) {
+        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+        document.getElementById(screenId).classList.add('active');
+    }
+
+    function switchNav(button, screenId) {
+        document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+        button.classList.add('active');
+        showScreen(screenId);
+    }
+</script>
 
 </body>
 </html>
