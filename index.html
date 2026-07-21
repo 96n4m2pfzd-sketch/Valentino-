@@ -175,7 +175,26 @@ function gestisciAccesso() {
     
     // 2. Salvi lo stato nel browser
     localStorage.setItem("isLoggedIn", "true");
-    
+        <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const isLoggedIn = localStorage.getItem("isLoggedIn");
+
+            if (isLoggedIn === "true") {
+                console.log("Utente già loggato");
+            } else {
+                console.log("Mostra schermata di benvenuto");
+            }
+        });
+
+        // Funzione da collegare al pulsante di accesso
+        function gestisciAccesso() {
+            localStorage.setItem("isLoggedIn", "true");
+            // Eventuale codice per cambiare pagina o vista
+        }
+    </script>
+</body>
+</html>
+
     // 3. Reindirizzi l'utente alla schermata principale
     window.location.href = "home.html"; // Sostituisci con il nome della tua pagina principale se è diverso
 }
