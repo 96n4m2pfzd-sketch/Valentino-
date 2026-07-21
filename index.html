@@ -225,7 +225,28 @@ function gestisciAccesso() {
             localStorage.setItem("isLoggedIn", "true");
             window.location.href = "home.html";
         }    </script>
-</body>
+</body>        // ... (qui ci sono gli altri tuoi codici, scritte o pulsanti) ...
+        
+    </script>    <-- INSERISCI QUI IL TAG DI APERTURA "<script>"
+    
+        document.addEventListener("DOMContentLoaded", function() {
+            const isLoggedIn = localStorage.getItem("isLoggedIn");
+
+            if (isLoggedIn === "true") {
+                window.location.href = "home.html"; 
+            } else {
+                // Lascia qui la schermata di benvenuto
+            }
+        });
+
+        function gestisciAccesso() {
+            localStorage.setItem("isLoggedIn", "true");
+            window.location.href = "home.html";
+        }
+    </script>       <-- QUESTO C'È GIÀ (chiude lo script)
+</body>                 <-- QUESTO C'È GIÀ
+</html>                 <-- QUESTO C'È GIÀ
+
 </html>
 
     
