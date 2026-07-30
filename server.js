@@ -106,49 +106,5 @@ app.get('/', (req, res) => {
                 document.getElementById('display-bio').innerText = bio || "Nessuna bio inserita.";
 
                 document.getElementById('profile-creator').style.display = 'none';
-                document.getElementById('main-app').style.display = 'block';
-            }
-
-            function like() {
-                alert("È un match! Ora puoi chattare.");
-                document.getElementById('main-app').style.display = 'none';
-                document.getElementById('chat').style.display = 'block';
-            }
-
-            function openChat() {
-                document.getElementById('main-app').style.display = 'none';
-                document.getElementById('chat').style.display = 'block';
-            }
-
-            function send() {
-                const input = document.getElementById('input');
-                if(input.value) {
-                    socket.emit('chat message', input.value);
-                    input.value = '';
-                }
-            }
-
-            socket.on('chat message', function(msg){
-                const item = document.createElement('li');
-                item.textContent = msg;
-                document.getElementById('messages').appendChild(item);
-            });
-        </script>
-    </body>
-    </html>
-  `);
-});
-
-io.on('connection', (socket) => {
-  socket.on('chat message', (msg) => {
-    io.emit('chat message', msg);
-  });
-});
-
-const PORT = process.env.PORT || 3000;
-server.listen(PORT, () => {
-  console.log('Server in esecuzione sulla porta ' + PORT);
-});
-
 
 
