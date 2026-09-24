@@ -1,0 +1,164 @@
+import React, { useState, useEffect } from 'react';
+import { createClient } from '@supabase/supabase-js';
+
+// --- CONFIGURA QUI I TUOI DATI DI SUPABASE ---
+const SUPABASE_URL = "INSERISCI_QUI_IL_TUO_PROJECT_URL";
+const SUPABASE_ANON_KEY = "INSERISCI_QUI_LA_TUA_ANON_KEY";
+
+const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+export default function RealSocialApp() {
+  const [posts, setPosts] = useState([]);
+  const [newPostContent, setNewPostContent] = useState("");
+  const [authorName, setAuthorName] = useState("");
+  const [loading, setLoading] = useState(true);
+
+  // 1. Carica i post dal database quando l'app si avvia
+  useEffect(() => {
+    fetchPosts();
+
+    // Opzionale: Ascolta in tempo reale se altri utenti pubblicano qualcosa!
+    const channel = supabase
+      .channel('public:posts')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'posts' }, (payload) => {
+        fetchPosts(); // Ricarica i post se ci sono modifiche
+      })
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, []);
+
+  const fetchPosts = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('posts')
+        .select('*')
+        .order('id', { ascending: false }); // Dal più recente al più vecchio
+      
+      if (error) throw error;
+      setPosts(data || []);
+    } catch (error) {
+      console.error('Errore nel caricamento dei post:', error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // 2. Invia un nuovo post al database cloud
+  const handlePostSubmit = async (e) => {
+    e.preventDefault();
+    if (!newPostContent.trim() || !authorName.trim()) {
+      alert("Inserisci il tuo nome e il testo del post!");
+      return;
+    }
+
+    try {
+      const { error } = await supabase
+        .from('posts')
+        .insert([{ content: newPostContent, author: authorName, likes: 0 }]);
+
+      if (error) throw error;
+
+      setNewPostContent("");
+      fetchPosts(); // Aggiorna la lista
+    } catch (error) {
+      alert('Errore durante la pubblicazione: ' + error.message);
+    }
+  };
+
+  // 3. Metti "Mi piace" e aggiorna il database
+  const handleLike = async (id, currentLikes) => {
+    try {
+      const { error } = await supabase
+        .from('posts')
+        .update({ likes: currentLikes + 1 })
+        .eq('id', id);
+
+      if (error) throw error;
+      fetchPosts();
+    } catch (error) {
+      console.error('Errore nel mettere mi piace:', error.message);
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-gray-100 font-sans">
+      {/* Barra di Navigazione */}
+      <header className="bg-blue-600 text-white p-4 shadow-md flex justify-between items-center">
+        <h1 className="text-2xl font-bold">MiniFace Cloud 🚀</h1>
+        <span className="text-sm bg-blue-700 px-3 py-1 rounded-full">Online & Multi-utente</span>
+      </header>
+
+      {/* Contenuto Principale */}
+      <main className="max-w-xl mx-auto p-4">
+        
+        {/* Box Creazione Post */}
+        <div className="bg-white p-4 rounded-lg shadow mb-4">
+          <form onSubmit={handlePostSubmit}>
+            <input
+              type="text"
+              className="w-full p-2 border rounded-lg mb-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Il tuo nome (es. Mario Rossi)"
+              value={authorName}
+              onChange={(e) => setAuthorName(e.target.value)}
+            />
+            <textarea
+              className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+              rows="3"
+              placeholder="A cosa stai pensando?"
+              value={newPostContent}
+              onChange={(e) => setNewPostContent(e.target.value)}
+            />
+            <div className="flex justify-end mt-2">
+              <button 
+                type="submit" 
+                className="bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700 transition"
+              >
+                Pubblica sul Cloud
+              </button>
+            </div>
+          </form>
+        </div>
+
+        {/* Feed dei Post */}
+        {loading ? (
+          <p className="text-center text-gray-500">Caricamento post in corso...</p>
+        ) : (
+          <div className="space-y-4">
+            {posts.length === 0 ? (
+              <p className="text-center text-gray-500 bg-white p-4 rounded-lg shadow">Nessun post trovato. Sii il primo a scrivere qualcosa!</p>
+            ) : (
+              posts.map((post) => (
+                <div key={post.id} className="bg-white p-4 rounded-lg shadow">
+                  <div className="flex items-center mb-2">
+                    <div className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold mr-3">
+                      {post.author ? post.author[0].toUpperCase() : "?"}
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-gray-800">{post.author}</h3>
+                      <span className="text-xs text-gray-500">Post ID: {post.id}</span>
+                    </div>
+                  </div>
+                  
+                  <p className="text-gray-700 mb-4">{post.content}</p>
+
+                  <div className="border-t pt-2 flex justify-between items-center text-gray-600 text-sm">
+                    <button 
+                      onClick={() => handleLike(post.id, post.likes)}
+                      className="flex items-center space-x-1 hover:text-blue-600 font-semibold"
+                    >
+                      <span>👍 Mi piace ({post.likes})</span>
+                    </button>
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
+        )}
+
+      </main>
+    </div>
+  );
+}
