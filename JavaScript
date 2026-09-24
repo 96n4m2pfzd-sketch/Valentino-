@@ -1,0 +1,11 @@
+// Per registrare un utente
+const { data, error } = await supabase.auth.signUp({
+  email: 'email@example.com',
+  password: 'password123',
+});
+
+// Per fare il login
+const { data, error } = await supabase.auth.signInWithPassword({
+  email: 'email@example.com',
+  password: 'password123',
+});
